@@ -1,0 +1,167 @@
+:root {
+	--bg-color                : #2a2420;
+	--bg-block-color          : #342c27;
+	--font-color              : #c5bab5;
+
+	--bg-botton-color         : #f1c8b4;
+	--bg-botton-hover-color   : #f4b18b;
+	--bg-botton-font-color    : #2a2420;
+
+	--link-color              : #d18e6d;
+	--link-hover-border-color : #d26b38;
+	--link-hover-color        : var(--link-hover-border-color);
+}
+
+html,
+body {
+	background     : var(--bg-color);
+	margin         : 0;
+	padding        : 0;
+	border         : 0;
+	font-size      : 1.1rem;
+	font-family    : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	color          : var(--font-color);
+	vertical-align : baseline;
+}
+
+body, body * {
+	box-sizing : border-box;
+}
+
+img {
+	max-width     : 100%;
+	margin        : auto;
+	display       : block;
+	border-radius : 16px;
+}
+
+img.logo,
+img.cat {
+	margin-top : 0 !important;
+}
+
+img.logo {
+	background : var(--bg-block-color);
+}
+
+img.cat {
+	box-shadow : 2px 2px 4px 1px rgba(30, 16, 8, 0.4);
+}
+
+button {
+	background : var(--bg-botton-color);
+	color      : var(--bg-botton-font-color);
+	transition : background-color, transform 0.24s linear;
+}
+
+button:hover {
+	background-color : var(--bg-botton-hover-color);
+	transform        : translate(2px, -4px);
+}
+
+header {
+	padding : 12px 18px;
+}
+
+header ul {
+	padding         : 0;
+	display         : flex;
+	flex-direction  : row;
+	align-items     : center;
+	justify-content : center;
+}
+
+header ul li {
+	list-style  : none;
+	display     : block;
+	padding     : 0 0.2rem;
+	margin      : 0 0.6rem;
+	font-size   : 1.12rem;
+	font-weight : 500;
+}
+
+header nav li a,
+main nav li a {
+	border-bottom : 2px solid transparent;
+	transition    : border-bottom-color 0.2s linear;
+}
+
+header a:hover,
+main a:hover {
+	border-bottom-color : var(--link-hover-border-color);
+}
+
+a {
+	text-decoration : none;
+	color           : var(--link-color);
+}
+
+a:hover {
+	color : var(--link-hover-color);
+}
+
+main ul li {
+	margin : 8px auto;
+}
+
+main button {
+	font-size     : 1rem;
+	padding       : 0.6rem 1.8rem;
+	margin        : 0.2rem 0.4rem;
+	border-radius : 30px;
+	font-weight   : bold;
+}
+
+@media (max-width : 800px) {
+	main button {
+		margin-top : 0.8rem;
+	}
+}
+
+main button:hover {
+	cursor : pointer;
+}
+
+footer {
+	padding         : 18px;
+	padding-bottom  : 2rem;
+	display         : flex;
+	flex-direction  : row;
+	align-items     : center;
+	justify-content : center;
+}
+
+.block-margin {
+	margin : 2rem auto;
+}
+
+.buttons {
+	display         : flex;
+	flex-direction  : row;
+	flex-wrap       : wrap;
+	justify-content : center;
+	align-items     : center;
+}
+
+.information {
+	background    : var(--bg-block-color);
+	padding       : .94rem 1.6rem;
+	border-radius : 16px;
+}
+
+.qualities {
+	padding : 0 0.6rem;
+}
+
+.links {
+	padding : 0 0.6rem;
+}
+
+.content {
+	min-width : 280px;
+	max-width : 1200px;
+	margin    : 0 auto;
+	padding   : 0 1.2rem;
+}
+
+

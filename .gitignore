@@ -1,0 +1,59 @@
+/logs/**/*
+/node_modules
+npm-debug.log
+.eslintcache
+.eslintcache-no-types
+databases/*.db*
+*.o
+*.o.dSYM
+*.tsbuildinfo
+**/sourceMaps
+*test.js
+
+# visual studio live share
+.vs
+
+# boilerplate #
+###############
+.DS_Store
+
+# editor temp files
+*~
+.idea/
+.git/
+
+tmp/**/*
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.pyc
+*.pyo
+*passwords.ts
+*sensitive.json
+.installed.cfg
+
+downloads
+dist
+
+# egg related
+develop-eggs
+*.egg-info
+*.egg
+*.EGG
+*.EGG-INFO
+src/*.egg-info
+eggs
+fake-eggs
+
+# django
+local_settings.py
+
+# SCM
+.hg
+.bzr
+.svn
+
+pip-log.txt
+# redis dumps
+*.rdb
