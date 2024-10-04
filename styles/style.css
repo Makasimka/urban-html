@@ -243,6 +243,10 @@ img.cat {
 	margin : auto auto 2rem;
 }
 
+footer .block-margin {
+	margin : 2rem auto auto;
+}
+
 .buttons {
 	display         : flex;
 	flex-direction  : row;
