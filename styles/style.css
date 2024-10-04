@@ -310,10 +310,6 @@ section.links-list {
 	margin-bottom : 30px;
 }
 
-.information-p {
-	padding-left : 2rem;
-}
-
 .custom-checkbox > input {
 	position : absolute;
 	z-index  : -1;
@@ -459,4 +455,8 @@ aside.alert {
 .comments .datetime {
 	text-align : right;
 	font-size  : 80%;
+}
+
+.mg-bottom {
+	margin-bottom: 1.2rem;
 }
