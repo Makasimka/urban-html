@@ -1,15 +1,23 @@
 :root {
 	--bg-color                : #2a2420;
 	--bg-block-color          : #342c27;
+	--bg-block-in-color       : #3d342e;
 	--font-color              : #c5bab5;
 
-	--bg-botton-color         : #f1c8b4;
-	--bg-botton-hover-color   : #f4b18b;
-	--bg-botton-font-color    : #2a2420;
+	--table-border-color      : #ebcbbd;
+
+	--checkbox-hsl            : 20deg;
+	--input-hsl               : 20deg;
+	--input-submit-hsl        : 170deg;
+	--button-hsl              : 40deg;
 
 	--link-color              : #d18e6d;
 	--link-hover-border-color : #d26b38;
 	--link-hover-color        : var(--link-hover-border-color);
+}
+
+html {
+	height : 100%;
 }
 
 html,
@@ -22,10 +30,20 @@ body {
 	font-family    : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	color          : var(--font-color);
 	vertical-align : baseline;
+	min-height     : 100%;
 }
 
 body, body * {
 	box-sizing : border-box;
+}
+
+body {
+	display        : flex;
+	flex-direction : column;
+}
+
+footer {
+	flex : 0 0 auto;
 }
 
 img {
@@ -35,32 +53,27 @@ img {
 	border-radius : 16px;
 }
 
-img.logo,
-img.cat {
-	margin-top : 0 !important;
-}
-
-img.logo {
-	background : var(--bg-block-color);
-}
-
-img.cat {
-	box-shadow : 2px 2px 4px 1px rgba(30, 16, 8, 0.4);
-}
-
 button {
-	background : var(--bg-botton-color);
-	color      : var(--bg-botton-font-color);
-	transition : background-color, transform 0.24s linear;
+	background : hsl(var(--button-hsl), 85%, 85%);
+	color      : hsl(var(--button-hsl), 85%, 15%);
+	transition : background-color, color, transform 0.24s linear;
+	border     : none;
+}
+
+button:active {
+	background-color : hsl(var(--button-hsl), 85%, 75%);
+	color            : hsl(var(--button-hsl), 85%, 10%);
 }
 
 button:hover {
-	background-color : var(--bg-botton-hover-color);
+	background-color : hsl(var(--button-hsl), 85%, 75%);
+	color            : hsl(var(--button-hsl), 85%, 10%);
 	transform        : translate(2px, -4px);
 }
 
 header {
-	padding : 12px 18px;
+	padding    : 12px 18px;
+	min-height : 46px;
 }
 
 header ul {
@@ -87,7 +100,8 @@ main nav li a {
 }
 
 header a:hover,
-main a:hover {
+main a:hover,
+a[href='#'] {
 	border-bottom-color : var(--link-hover-border-color);
 }
 
@@ -100,22 +114,17 @@ a:hover {
 	color : var(--link-hover-color);
 }
 
-main ul li {
+main ul li,
+main ol li {
 	margin : 8px auto;
 }
 
 main button {
 	font-size     : 1rem;
-	padding       : 0.6rem 1.8rem;
+	padding       : 0.6rem 2rem;
 	margin        : 0.2rem 0.4rem;
 	border-radius : 30px;
 	font-weight   : bold;
-}
-
-@media (max-width : 800px) {
-	main button {
-		margin-top : 0.8rem;
-	}
 }
 
 main button:hover {
@@ -123,16 +132,115 @@ main button:hover {
 }
 
 footer {
-	padding         : 18px;
-	padding-bottom  : 2rem;
-	display         : flex;
-	flex-direction  : row;
-	align-items     : center;
-	justify-content : center;
+	padding    : 2rem 0;
+	background : #1b110a;
+}
+
+h1 {
+	font-size : 150%;
+}
+
+h2 {
+	font-size : 122%;
+	margin    : 0.6rem 0;
+}
+
+h3 {
+	font-size : 115%;
+	margin    : 0.4rem 0;
+}
+
+h4 {
+	font-size : 110%;
+	margin    : 0.2rem 0;
+}
+
+h5 {
+	font-size : 105%;
+	margin    : 0.18rem 0;
+}
+
+h6 {
+	font-size : 100%;
+	margin    : 0.14rem 0;
+}
+
+table {
+	font-size       : 88%;
+	width           : 100%;
+	border-collapse : collapse;
+	border-color    : transparent;
+	border-spacing  : 0;
+}
+
+th, td {
+	border       : solid 1px var(--table-border-color);
+	border-style : none solid solid none;
+	padding      : 10px;
+}
+
+thead tr:first-child th:first-child {
+	border-top-left-radius : 8px;
+}
+
+thead tr:first-child th:last-child {
+	border-top-right-radius : 8px;
+}
+
+tfoot tr:last-child th:first-child {
+	border-bottom-left-radius : 8px;
+}
+
+tfoot tr:last-child th:last-child {
+	border-bottom-right-radius : 8px;
+}
+
+tr:first-child th {
+	border-top-style : solid;
+}
+
+tr th:first-child {
+	border-left-style : solid;
+}
+
+input {
+
+}
+
+footer nav ul,
+footer nav ul li {
+	padding : 0;
+	margin  : 0;
+}
+
+footer nav ul li {
+	list-style : none;
+}
+
+/* --- Classes --- */
+td.center {
+	text-align : center;
+}
+
+img.logo,
+img.cat {
+	margin-top : 0 !important;
+}
+
+img.logo {
+	background : var(--bg-block-color);
+}
+
+img.cat {
+	box-shadow : 2px 2px 4px 1px rgba(30, 16, 8, 0.4);
 }
 
 .block-margin {
 	margin : 2rem auto;
+}
+
+.block-margin:first-child {
+	margin : auto auto 2rem;
 }
 
 .buttons {
@@ -149,12 +257,27 @@ footer {
 	border-radius : 16px;
 }
 
+.information fieldset {
+	border-color  : #94857a;
+	border-radius : 8px;
+}
+
+.information-in {
+	background    : var(--bg-block-in-color);
+	padding       : .94rem 1.6rem;
+	border-radius : 16px;
+}
+
 .qualities {
 	padding : 0 0.6rem;
 }
 
 .links {
 	padding : 0 0.6rem;
+}
+
+.main-content {
+	flex : 1 0 auto;
 }
 
 .content {
@@ -164,4 +287,172 @@ footer {
 	padding   : 0 1.2rem;
 }
 
+.footer-content {
+	display         : flex;
+	flex-direction  : column;
+	align-items     : center;
+	justify-content : center;
+}
 
+.footer-links {
+	display         : flex;
+	flex-direction  : row;
+	align-items     : flex-start;
+	justify-content : space-around;
+	width           : 100%;
+}
+
+section.links-list {
+	margin-bottom : 30px;
+}
+
+.information-p {
+	padding-left : 2rem;
+}
+
+.custom-checkbox > input {
+	position : absolute;
+	z-index  : -1;
+	opacity  : 0;
+}
+
+.custom-checkbox > span {
+	display     : inline-flex;
+	align-items : center;
+	user-select : none;
+}
+
+.custom-checkbox > span::before {
+	content             : '';
+	display             : inline-block;
+	width               : 1em;
+	height              : 1em;
+	flex-shrink         : 0;
+	flex-grow           : 0;
+	border              : 2px solid hsl(var(--checkbox-hsl), 30%, 64%);
+	border-radius       : 0.24em;
+	margin-right        : 0.5em;
+	background-repeat   : no-repeat;
+	background-position : center center;
+	background-size     : 50% 50%;
+}
+
+.custom-checkbox > input:not(:disabled):not(:checked) + span:hover::before {
+	border-color : hsl(var(--checkbox-hsl), 30%, 70%);
+}
+
+.custom-checkbox > input:not(:disabled):active + span::before {
+	background-color : hsl(var(--checkbox-hsl), 30%, 25%);
+	border-color     : hsl(var(--checkbox-hsl), 30%, 29%);
+}
+
+.custom-checkbox > input:focus + span::before {
+	box-shadow : 0 0 0 0.18rem hsla(var(--checkbox-hsl), 30%, 75%, 12%);
+}
+
+.custom-checkbox > input:focus:not(:checked) + span::before {
+	border-color : hsl(var(--checkbox-hsl), 30%, 70%);
+}
+
+.custom-checkbox > input:checked + span::before {
+	background-color : hsl(var(--checkbox-hsl), 30%, 30%);
+	background-image : url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 8 8\'%3e%3cpath fill=\'%23fff\' d=\'M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z\'/%3e%3c/svg%3e');
+	border-color     : hsl(var(--checkbox-hsl), 30%, 34%);
+}
+
+.custom-checkbox > input:disabled + span::before {
+	background-color : hsl(var(--checkbox-hsl), 30%, 26%);
+	border-color     : hsl(var(--checkbox-hsl), 30%, 28%);
+}
+
+.input,
+.submit {
+	margin    : 0 0 6px 0;
+	font-size : 80%;
+	max-width : 400px;
+}
+
+.submit {
+	margin          : 12px 0 6px 0;
+	display         : flex;
+	flex-direction  : row;
+	align-items     : center;
+	justify-content : center;
+}
+
+.input *,
+.submit * {
+	outline : none;
+}
+
+.input sup {
+	color : #d67c63;
+}
+
+.input input,
+.input textarea {
+	font-size     : 96%;
+	display       : block;
+	padding       : 8px 12px;
+	background    : hsl(var(--input-hsl), 15%, 30%);
+	border        : 1px solid hsl(var(--input-hsl), 15%, 32%);
+	border-radius : 4px;
+	color         : hsl(var(--input-hsl), 15%, 80%);
+	margin-top    : 4px;
+	width         : 96%;
+}
+
+.submit input {
+	width         : auto;
+	font-size     : 96%;
+	display       : block;
+	padding       : 0.6rem 1.4rem;
+	background    : hsl(var(--button-hsl), 85%, 85%);
+	border        : 1px solid hsl(var(--button-hsl), 85%, 82%);
+	border-radius : 8px;
+	color         : hsl(var(--button-hsl), 85%, 15%);
+	margin-top    : 4px;
+	cursor        : pointer;
+}
+
+.input textarea {
+	resize : none;
+	height : 8rem;
+}
+
+.input input:focus,
+.input textarea:focus {
+	background : hsl(var(--input-hsl), 15%, 34%);
+}
+
+.submit input:focus,
+.submit input:active {
+	background-color : hsl(var(--button-hsl), 85%, 76%);
+	color            : hsl(var(--button-hsl), 85%, 10%);
+}
+
+.input input::placeholder,
+.input textarea::placeholder {
+	color : hsl(var(--input-hsl), 15%, 58%);
+}
+
+aside.alert {
+	color     : hsl(50deg 45% 65%);
+	font-size : 84%;
+	padding   : 4px 0;
+	margin    : 0 0 8px 0;
+}
+
+.comments .user-info {
+
+}
+
+.comments article p {
+	font-size  : 92%;
+	font-style : italic;
+}
+
+.comments .datetime {
+	text-align : right;
+	font-size  : 80%;
+}

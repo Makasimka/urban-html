@@ -1,0 +1,30 @@
+@media (max-width : 460px) {
+	header ul {
+		flex-direction : column;
+		align-items    : flex-start;
+		margin         : 0 22px 8px;
+	}
+
+	header ul li {
+		display    : list-item;
+		list-style : circle;
+		margin     : 8px 0 0;
+	}
+}
+
+@media (max-width : 600px) {
+	.footer-links {
+		flex-direction : column;
+		width          : max-content;
+	}
+
+	.footer-links section {
+		margin : 0.6rem 0 0;
+	}
+}
+
+@media (max-width : 800px) {
+	main button {
+		margin-top : 0.8rem;
+	}
+}
