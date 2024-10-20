@@ -19,6 +19,7 @@ export function concatStrings(isDebug, ...strings) {
 export function concatStringsBind(result, formData) {
 	const textDebug = concatStrings(true, ...formData.values());
 	const textFull  = concatStrings(false, ...formData.values());
+
 	result.innerHTML = `
 		${textDebug}
 		<br /><br />

@@ -17,14 +17,13 @@ function bindForm(form, fnSubmit) {
 		if (!result) {
 			form.reset();
 			return;
-
 		}
 
 		try {
 			result.classList.remove('invalid');
 			fnSubmit?.(result, new FormData(form));
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 
 			result.classList.add('invalid');
 			result.innerHTML = `Ошибка: ${error.message}`;
