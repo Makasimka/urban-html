@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../../styles/normalize.css">
+	<link rel="stylesheet" href="../../styles/style.css?1">
+	<link rel="stylesheet" href="../../styles/adaptation.css">
+	<script async type="module" src="../../scripts/script.js"></script>
+	<title>Модуль 4. JS.База</title>
+</head>
+<body>
+	<div class="main-content">
+		<header class="content">
+			<nav>
+				<ul>
+					<li><a href="/urban-html/">Главная</a></li>
+					<li><a href="/urban-html/html/comments.html">Комментарии</a></li>
+					<li><a href="/urban-html/html/homeworks.html">Мои дз</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main class="content">
+			<h1>Зачетная работа по модулю №4</h1>
+
+			<section class="information block-margin">
+				<h2>Вывод приветствия</h2>
+
+				<form id="form_greet" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b>Представьтесь:</b>
+							<input id="user_name" name="user_name" placeholder="Введите имя" required/>
+						</label>
+					</div>
+
+					<div class="form__result"></div>
+
+					<div class="submit submit-full">
+						<input type="submit" value="Представиться">
+					</div>
+				</form>
+			</section>
+
+			<section class="information block-margin">
+				<h2>Перевод градусов Цельсия в градусы Фаренгейта</h2>
+
+				<form id="form_celsius" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b>Введите градусы Цельсия:</b>
+							<input name="celsius" placeholder="Введите значение" required/>
+						</label>
+					</div>
+
+					<div class="form__result"></div>
+
+					<div class="submit submit-full">
+						<input type="submit" value="Форматировать">
+					</div>
+				</form>
+			</section>
+
+			<section class="information block-margin">
+				<h2>Расчет пути, пройденного телом при свободном падении</h2>
+
+				<form id="form_fall_distance" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b><sup class="strict">*</sup> Время падения (секунды):</b>
+							<input name="time_fall" type="number" placeholder="Введите значение" required/>
+						</label>
+					</div>
+
+					<div class="input">
+						<label>
+							<b>Ускорение свободного падения (м/с<sup>2</sup>):</b>
+							<input name="acceleration" type="number"  placeholder="Введите значение"/>
+						</label>
+					</div>
+
+					<div class="form__result"></div>
+
+					<div class="submit submit-full">
+						<input type="submit" value="Рассчитать">
+					</div>
+				</form>
+			</section>
+
+
+			<section class="information block-margin">
+				<h2>Подсчет среднего значения чисел</h2>
+
+				<form id="form_number_avg" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b>Введите числа, через запятую:</b>
+							<input name="numbers_str" placeholder="Введите числа" required/>
+						</label>
+					</div>
+
+					<div class="form__result"></div>
+
+					<div class="submit submit-full">
+						<input type="submit" value="Посчитать">
+					</div>
+				</form>
+			</section>
+
+			<section class="information block-margin">
+				<h2>Объединение строк</h2>
+
+				<form id="form_concat_str" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b>Введите первую строку:</b>
+							<input name="str[]" placeholder="Введите любой текст" required/>
+						</label>
+					</div>
+
+					<div class="input">
+						<label>
+							<b>Введите вторую строку:</b>
+							<input name="str[]" placeholder="Введите любой текст" required/>
+						</label>
+					</div>
+
+					<div class="form__result"></div>
+
+					<div class="submit submit-full">
+						<input type="submit" value="Объединить">
+					</div>
+				</form>
+			</section>
+
+		</main>
+	</div>
+
+	<footer>
+		<div class="content footer-content">
+			<div class="footer-links">
+				<section>
+					<nav>
+						<h3>Полезные ссылки</h3>
+						<ul>
+							<li>
+								<a href="/urban-html/html/homeworks/homework1.html">Кратко о HTML, CSS и JS</a>
+							</li>
+							<li>
+								<a href="/urban-html/html/homeworks/homework2.html">Кратко о фронтенде</a>
+							</li>
+							<li>
+								<a href="/urban-html/html/homeworks.html">Список моих дз</a>
+							</li>
+						</ul>
+					</nav>
+				</section>
+
+				<section>
+					<nav>
+						<h3>Связь со мной</h3>
+						<ul aria-label="Ссылки на мои социальные сети и гитхаб">
+							<li aria-label="Профиль ВКонтакте">
+								<a href="https://vk.com/makasimka_eliseev" target="_social">VK: Елисеев Максим</a>
+							</li>
+
+							<li aria-label="Профиль Telegram">
+								<a href="https://t.me/m4kasimka" target="_social">Telegram: @m4kasimka</a>
+							</li>
+
+							<li aria-label="Профиль на GitHub">
+								<a href="https://github.com/Makasimka" target="_social">GitHub: Makasimka</a>
+							</li>
+
+							<li aria-label="Мой e-mail">
+								<a href="mailto:makasimka93@list.ru">makasimka93@list.ru</a>
+							</li>
+						</ul>
+					</nav>
+				</section>
+			</div>
+			<div class="block-margin">
+				<p>© 2024, Eliseev Maxim</p>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

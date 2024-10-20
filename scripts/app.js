@@ -11,6 +11,7 @@ function addComment(uName, uEmail, uComment) {
 	uName    = htmlEntities(uName || 'Anonymous').trim();
 	uEmail   = htmlEntities(uEmail|| 'address@mail.ru').trim();
 	uComment = htmlEntities(uComment).trim();
+
 	if (!uComment) {
 		return;
 	}
