@@ -1,6 +1,6 @@
 import { toFormatDeg, anyStringToNumberString } from './utils.js';
 
-export function celsiusToFahrenheit(celsius, isMinus = false) {
+export function celsiusToFahrenheit(celsius, isMinus) {
 	if (celsius === '') {
 		throw new Error('Значение для градусов Цельсия должно быть корректным числом');
 	}
@@ -10,11 +10,9 @@ export function celsiusToFahrenheit(celsius, isMinus = false) {
 		throw new Error('Значение для градусов Цельсия должно быть корректным числом');
 	}
 
-	celsius = Math.abs(celsius);
-
-	if (isMinus) {
-		celsius = -celsius;
-	}
+	// Нужна ли обработка отрицательных чисел? Если передан булев параметр isMinus, то обрабатываем.
+	celsius = isMinus !== undefined ? Math.abs(celsius) : celsius;
+	celsius = isMinus ? -celsius : celsius;
 
 	return (celsius * 9 / 5) + 32;
 }
