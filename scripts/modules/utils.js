@@ -12,8 +12,8 @@ export function anyStringToNumberString(value) {
 
 	let formatValue = value
 	.replace(/[^0-9,.]+/g, '')
-	.replace(/\.+/g, '.')
-	.replace(/,+/g, '.');
+	.replace(/,+/g, '.')
+	.replace(/\.+/g, '.');
 
 	return formatValue.trim();
 }
