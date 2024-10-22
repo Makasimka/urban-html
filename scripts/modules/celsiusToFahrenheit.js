@@ -1,17 +1,14 @@
 import { toFormatDeg, anyStringToNumberString } from './utils.js';
 
 /**
- * @param celsius {string | number}
+ * @param celsiusVal {string | number}
  * @param isMinus {undefined | boolean}
  * @return {number}
  * */
-export function celsiusToFahrenheit(celsius, isMinus) {
-	if (celsius === '') {
-		throw new Error('Значение для градусов Цельсия должно быть корректным числом');
-	}
+export function celsiusToFahrenheit(celsiusVal, isMinus) {
+ 	let celsius = Number(celsiusVal);
 
- 	celsius = Number(celsius);
-	if (Number.isNaN(celsius)) {
+	if (celsiusVal === '' || Number.isNaN(celsius)) {
 		throw new Error('Значение для градусов Цельсия должно быть корректным числом');
 	}
 

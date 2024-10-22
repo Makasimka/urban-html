@@ -10,6 +10,7 @@ export function calculateAverage(...numbers) {
 	}
 
 	const parseNumbers = numbers.map(num => Number(num));
+
 	if (parseNumbers.some((v) => Number.isNaN(v))) {
 		throw new Error('Все переданные значения должны быть числами');
 	}

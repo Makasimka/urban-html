@@ -1,3 +1,8 @@
+/**
+ * @param value {string | number}
+ * @param isMinus {boolean}
+ * @return {string}
+ **/
 export function toFormatDeg(value, isMinus) {
 	let formatValue = String(Math.abs(value));
 	formatValue = formatValue.replace(/\./g, ',');
@@ -5,6 +10,7 @@ export function toFormatDeg(value, isMinus) {
 }
 
 // Пытаемся сделать из строки, числовую строку
+/** @return {string} */
 export function anyStringToNumberString(value) {
 	if (!value) {
 		return '';
@@ -18,6 +24,7 @@ export function anyStringToNumberString(value) {
 	return formatValue.trim();
 }
 
+/** @return {string} */
 export function htmlEntities(string) {
 	if (!string) {
 		return '';

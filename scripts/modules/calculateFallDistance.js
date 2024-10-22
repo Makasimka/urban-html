@@ -1,17 +1,17 @@
 import { declension, htmlEntities } from './utils.js';
 
 /**
- * @param acceleration {number | string}
- * @param timeFall {number | string}
+ * @param accelerationVal {number | string}
+ * @param timeFallVal {number | string}
  * @return {number}
  * */
-export function calculateFallDistance(acceleration, timeFall) {
-	acceleration = Number(acceleration);
+export function calculateFallDistance(accelerationVal, timeFallVal) {
+	const acceleration = Number(accelerationVal);
 	if (Number.isNaN(acceleration)) {
 		throw new Error('Значение для ускорения сводного падения должно быть числом');
 	}
 
-	timeFall = Number(timeFall);
+	const timeFall = Number(timeFallVal);
 	if (Number.isNaN(timeFall)) {
 		throw new Error('Значение для времени падения должно быть числом');
 	}
