@@ -1,5 +1,10 @@
 import { toFormatDeg, anyStringToNumberString } from './utils.js';
 
+/**
+ * @param celsius {string | number}
+ * @param isMinus {undefined | boolean}
+ * @return {number}
+ * */
 export function celsiusToFahrenheit(celsius, isMinus) {
 	if (celsius === '') {
 		throw new Error('Значение для градусов Цельсия должно быть корректным числом');
@@ -18,14 +23,14 @@ export function celsiusToFahrenheit(celsius, isMinus) {
 }
 
 /**
- * @param result {HTMLDivElement}
  * @param formData {FormData}
+ * @return {string}
  * */
-export function celsiusToFahrenheitBind(result, formData) {
+export function celsiusToFahrenheitBind(formData) {
 	const value   = (formData.get('celsius') || '').trim();
 	const isMinus = [ '-', '—', '−', ].includes(value.charAt(0));
 	const celsius = anyStringToNumberString(value);
 
 	const resultVal  = celsiusToFahrenheit(celsius, isMinus);
-	result.innerHTML = `${toFormatDeg(celsius, isMinus)} °C = ${toFormatDeg(resultVal, isMinus)} °F`;
+	return `${toFormatDeg(celsius, isMinus)} °C = ${toFormatDeg(resultVal, isMinus)} °F`;
 }

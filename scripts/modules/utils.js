@@ -30,6 +30,11 @@ export function htmlEntities(string) {
 	.replace(/"/g, '&quot;');
 }
 
+/**
+ * @param amountVal {number}
+ * @param titles {string[]}
+ * @return {string}
+ * */
 export function declension(amountVal, titles) {
 	let amount  = Number(amountVal);
 	const cases = [2, 0, 1, 1, 1, 2];

@@ -1,5 +1,9 @@
 import { htmlEntities } from './utils.js';
 
+/**
+ * @param numbers {number | string}
+ * @return {number}
+ * */
 export function calculateAverage(...numbers) {
 	if (numbers.length < 2) {
 		throw new Error('В функцию должно передаваться не менее двух аргументов');
@@ -15,10 +19,10 @@ export function calculateAverage(...numbers) {
 }
 
 /**
- * @param result {HTMLDivElement}
  * @param formData {FormData}
+ * @return {string}
  * */
-export function calculateAverageBind(result, formData) {
+export function calculateAverageBind(formData) {
 	let numbers = (formData.get('numbers_str') || '').replace(/\s/g, '').split(',');
 	numbers = numbers.map(num => htmlEntities(num).trim());
 
@@ -31,7 +35,7 @@ export function calculateAverageBind(result, formData) {
 		return `${str}${key ? ' + ' : ''}${number}`;
 	}, '');
 
-	result.innerHTML = `
+	return `
 		Считаем значение заданных чисел: (${numStr}) / ${numbers.length}
 		<br /><br />Результат: ${avg}
 	`;

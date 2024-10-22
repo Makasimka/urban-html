@@ -1,26 +1,31 @@
 import { htmlEntities } from './utils.js';
 
-export function concatStrings(isDebug, ...strings) {
+/**
+ * @param strings {string}
+ * @return {[string, string]}
+ * */
+export function concatStrings(...strings) {
+	let debugString = '';
 	const string = strings.reduce((value, curString, key) => {
-		if (isDebug) {
-			return `${value}${key ? ',' : ''} Слово (${key + 1}) — «${htmlEntities(curString)}»`;
-		}
-
+		debugString = `${debugString}${key ? ',' : ''} Слово (${key + 1}) — «${htmlEntities(curString)}»`;
 		return `${value} ${htmlEntities(curString)}`;
 	}, '');
-	return string.trimStart();
+
+	return [
+		string.trimStart(),
+		debugString
+	];
 }
 
 
 /**
- * @param result {HTMLDivElement}
  * @param formData {FormData}
+ * @return {string}
  * */
-export function concatStringsBind(result, formData) {
-	const textDebug = concatStrings(true, ...formData.values());
-	const textFull  = concatStrings(false, ...formData.values());
+export function concatStringsBind(formData) {
+	const [textFull, textDebug] = concatStrings(...formData.values());
 
-	result.innerHTML = `
+	return `
 		${textDebug}
 		<br /><br />
 		Результат: ${textFull}
