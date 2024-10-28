@@ -151,18 +151,10 @@ export class Tasks {
 	}
 
 	showAllText() {
-		let taskList = '';
-		for (const task of this.list) {
-			taskList = `${task.getText()}\n${taskList}`;
-		}
-		return taskList;
+		return this.list.reduce((str, task) => `${task.getText()}\n${str}`, '');
 	}
 
 	showAllHtml() {
-		let taskList = '';
-		for (const [index, task] of this.list.entries()) {
-			taskList = `${task.getHtml(index)}${taskList}`;
-		}
-		return taskList;
+		return this.list.reduce((str, task, index) => `${task.getHtml(index)}\n${str}`, '');
 	}
 }
