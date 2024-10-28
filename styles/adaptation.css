@@ -10,6 +10,10 @@
 		list-style : circle;
 		margin     : 8px 0 0;
 	}
+
+	.information {
+		padding : .76rem 1.26rem;
+	}
 }
 
 @media (max-width : 600px) {
@@ -20,6 +24,10 @@
 
 	.footer-links section {
 		margin : 0.6rem 0 0;
+	}
+
+	.task__buttons {
+		justify-content : center;
 	}
 }
 

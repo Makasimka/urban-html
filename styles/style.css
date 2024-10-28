@@ -10,6 +10,7 @@
 	--input-hsl               : 20deg;
 	--input-submit-hsl        : 170deg;
 	--button-hsl              : 40deg;
+	--block-hsl               : 24deg;
 
 	--link-color              : #d18e6d;
 	--link-hover-border-color : #d26b38;
@@ -245,7 +246,7 @@ img.cat {
 }
 
 .block-margin {
-	margin : 2rem auto;
+	margin : 1.6rem auto;
 }
 
 .block-margin:first-child {
@@ -508,9 +509,84 @@ aside.alert {
 }
 
 .form__result.invalid {
-	border-color: hsl(var(--input-hsl), 80%, 60%);
+	border-color : hsl(var(--input-hsl), 80%, 60%);
 }
 
 .form__result:empty {
 	display : none;
+}
+
+.tasks {
+	display        : flex;
+	flex-direction : column;
+	gap            : 20px;
+}
+
+.tasks:empty::after {
+	content      : 'Сейчас ваш список задач пуст...';
+	position     : relative;
+	font-size    : 0.88rem;
+	padding-left : 0.2rem;
+	color        : #c19b8e;
+}
+
+.task {
+	position         : relative;
+	display          : flex;
+	flex-direction   : column;
+	gap              : 12px;
+	padding          : 12px 18px;
+
+	background-color : hsla(var(--block-hsl), 20%, 60%, 12%);
+	border-radius    : 8px;
+}
+
+.task__ident {
+	display   : flex;
+	flex-wrap : wrap;
+	gap       : 8px;
+}
+
+.task__status {
+	color : #d17f7f;
+}
+
+.task__status-done {
+	color : #7fd19f;
+}
+
+.task__name {
+	font-weight : bold;
+}
+
+.task__desc {
+	font-size : 0.94rem;
+}
+
+.task__desc.hide {
+	display : none;
+}
+
+.task__edit {
+	display : none;
+}
+
+.task__edit.show {
+	display : block;
+}
+
+.task__buttons {
+	display         : flex;
+	flex-wrap       : wrap;
+	justify-content : flex-end;
+}
+
+.task__button {
+	padding       : 0.4rem 1.2rem;
+	font-size     : 0.88rem;
+	border-radius : 6px;
+}
+
+.task__button:hover {
+	transform : none;
 }

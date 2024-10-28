@@ -34,6 +34,7 @@ export function htmlEntities(string) {
 	.replace(/&/g, '&amp;')
 	.replace(/</g, '&lt;')
 	.replace(/>/g, '&gt;')
+	.replace(/'/g, '&apos;')
 	.replace(/"/g, '&quot;');
 }
 
@@ -57,4 +58,51 @@ export function declension(amountVal, titles) {
 	amount = Math.abs(Math.floor(amount));
 	const key = ((amount % 100 > 4 && amount % 100 < 20) ? 2 : cases[((amount % 10 < 5) ? amount % 10 : 5)]) || 0;
 	return (titles[key] || titles[0]);
+}
+
+/**
+ * @param form {HTMLFormElement | null}
+ * @param fnSubmit {(formData: FormData) => string | undefined}
+ * @return {void}
+ * */
+export function bindForm(form, fnSubmit) {
+	if (!form) {
+		return;
+	}
+
+	const resultHtml = form.getElementsByClassName('form__result')[0];
+	const viewResult = (data) => {
+		if (!resultHtml) {
+			return;
+		}
+
+		if (!data) {
+			data = new Error('Функция не вернула результат');
+		}
+
+		if (typeof data === 'string') {
+			resultHtml.classList.remove('invalid');
+			resultHtml.innerHTML = data;
+		} else if (data instanceof Error) {
+			resultHtml.classList.add('invalid');
+			resultHtml.innerHTML = `Ошибка: ${data.message}`;
+		} else {
+			resultHtml.classList.remove('invalid');
+			resultHtml.innerHTML = '';
+		}
+	};
+
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+
+		try {
+			const resultVal = fnSubmit?.(new FormData(form));
+			viewResult(resultVal);
+		} catch (error) {
+			console.error(error);
+			viewResult(error);
+		} finally {
+			form.reset();
+		}
+	});
 }
