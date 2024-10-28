@@ -44,7 +44,7 @@ class Task {
 				<button class="task__button task__button-remove s-remove">🗑️ Удалить</button>
 			</div>
 		</article>
-		`
+		`;
 	}
 
 	isDone() {
@@ -155,6 +155,6 @@ export class Tasks {
 	}
 
 	showAllHtml() {
-		return this.list.reduce((str, task, index) => `${task.getHtml(index)}\n${str}`, '');
+		return this.list.reduce((str, task, index) => `${task.getHtml(index)}${str}`, '');
 	}
 }
