@@ -561,6 +561,8 @@ aside.alert {
 
 .task__desc {
 	font-size : 0.94rem;
+	padding   : 0;
+	margin    : 0;
 }
 
 .task__desc.hide {

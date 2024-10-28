@@ -38,8 +38,7 @@ class Task {
 				<div class="task__status${this.isDone() ? ' task__status-done' : ''}">[${this.getStatusName()}]</div>
 				<div class="task__name">${htmlEntities(this.getName())}</div>
 			</div>
-			<div class="task__desc">${htmlEntities(this.getDesc())}</div>
-			<div class="task__edit"><textarea name="task_desc" placeholder="Введите задачу"></textarea></div>
+			<p class="task__desc">${htmlEntities(this.getDesc())}</p>
 			<div class="task__buttons">
 				${markButton}
 				<button class="task__button task__button-remove s-remove">🗑️ Удалить</button>
