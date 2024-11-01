@@ -1,4 +1,5 @@
 export class AppStorage {
+	/** @param storageInit {Storage} */
 	constructor(storageInit = localStorage) {
 		/** @type Storage */
 		this.storage = storageInit;
@@ -9,8 +10,7 @@ export class AppStorage {
 	}
 
 	addJson(key, value) {
-		const json = JSON.stringify(value);
-		this.add(key, json);
+		this.add(key, JSON.stringify(value));
 	}
 
 	get(key) {
@@ -19,14 +19,14 @@ export class AppStorage {
 
 	getJson(key) {
 		try {
-			const data = this.storage.getItem(key);
+			const data = this.get(key);
 			if (!data) {
 				return null;
 			}
 
 			return JSON.parse(data);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 			return null;
 		}
 	}
