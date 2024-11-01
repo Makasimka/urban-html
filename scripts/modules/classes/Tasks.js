@@ -26,12 +26,11 @@ class Task {
 
 		/** @type {Tasks} */
 		this.tasks = tasks;
+		this.isDeleted = false;
 
 		/** @type {HTMLDivElement} */
 		this.$elm = this.createElement();
 		this.updateHtml();
-
-		this.tasks.list.set(this.id, this);
 	}
 
 	// Для хранения в Storage
@@ -102,17 +101,20 @@ class Task {
 	};
 
 	destroy() {
-		if (this.$elm) {
-			this.$elm.removeEventListener('click', this.fnEventClick);
-			this.$elm.removeEventListener('dblclick', this.fnEventDblClick);
-			this.$elm.remove();
+		if (this.isDeleted) {
+			return;
 		}
 
-		this.tasks.list.delete(this.id);
-		this.tasks.save();
+		this.isDeleted  = true;
 
-		this.$elm  = null;
+		this.$elm.removeEventListener('click', this.fnEventClick);
+		this.$elm.removeEventListener('dblclick', this.fnEventDblClick);
+		this.$elm.remove();
+
+		this.tasks.removeTask(this);
+
 		this.tasks = null;
+		this.$elm  = null;
 	}
 
 	/** @return HTMLDivElement */
@@ -130,26 +132,51 @@ class Task {
 			return;
 		}
 
-		const markButton = this.isDone()
-			? `<button class="task__button s-mark">✖ Отметить невыполненной</button>`
-			: `<button class="task__button s-mark">✔ Отметить выполненной</button>`;
-
 		this.$elm.innerHTML = `
 			<div class="task__ident">
-				<div class="task__status${this.isDone() ? ' task__status-done' : ''}">[${this.getStatusName()}]</div>
-				<div class="task__name${this.isDone() ? ' task__name-done' : ''}">${this.getNameInner()}</div>
+				<div class="task__status">[${this.getStatusName()}]</div>
+				<div class="task__name">${this.getNameInner()}</div>
 			</div>
 			<div class="task__content">
 				<p class="task__desc">${this.getDescInner()}</p>
 				<textarea class="task__edit input-theme"></textarea>
 			</div>
 			<div class="task__buttons">
-				${markButton}
+				<button class="task__button s-mark"></button>
 				<button class="task__button s-edit">✏️ Изменить</button>
 				<button class="task__button block-hide s-save">💾 Сохранить</button>
 				<button class="task__button s-remove">🗑️ Удалить</button>
 			</div>
 		`;
+
+		this.updateHtmlStatus();
+	}
+
+	updateHtmlStatus() {
+		if (!this.$elm) {
+			return;
+		}
+
+		// Обновляем отображение
+		const btnMark = this.$elm.querySelector('.s-mark');
+		if (btnMark) {
+			btnMark.innerText = this.isDone() ? `✖ Отметить невыполненной` : `✔ Отметить выполненной`;
+		}
+
+		const elmStatus = this.$elm.querySelector('.task__status');
+		const elmName   = this.$elm.querySelector('.task__name');
+
+		if (!elmStatus || !elmName) {
+			return;
+		}
+
+		if (this.isDone()) {
+			elmStatus.classList.add('task__status-done');
+			elmName.classList.add('task__name-done');
+		} else {
+			elmStatus.classList.remove('task__status-done');
+			elmName.classList.remove('task__name-done');
+		}
 	}
 
 	updateStatusByFilter() {
@@ -212,14 +239,14 @@ class Task {
 
 	done() {
 		this.completed = true;
-		this.updateHtml();
+		this.updateHtmlStatus();
 		this.updateStatusByFilter();
 		this.tasks.save();
 	}
 
 	undone() {
 		this.completed = false;
-		this.updateHtml();
+		this.updateHtmlStatus();
 		this.updateStatusByFilter();
 		this.tasks.save();
 	}
@@ -236,17 +263,16 @@ class Task {
 
 		this.name = Task.toName(descValue);
 		this.desc = descValue;
+		this.tasks.save();
 
-
-		const elmName = this.$elm.querySelector('.task__desc');
+		// Обновляем отображение
+		const elmName = this.$elm.querySelector('.task__name');
 		const elmDesc = this.$elm.querySelector('.task__desc');
 
 		if (elmName && elmDesc) {
 			elmName.innerHTML = this.getNameInner();
 			elmDesc.innerHTML = this.getDescInner();
 		}
-
-		this.tasks.save();
 	}
 
 	startEdit() {
@@ -371,15 +397,15 @@ export class Tasks {
 		}
 
 		this.nextId = Number.isNaN(id) ? this.nextId : id;
+
 		for (const taskData of data) {
 			if (typeof taskData !== 'object') {
 				continue;
 			}
 
-			new Task(this, taskData);
+			const task = new Task(this, taskData);
+			this.addTask(task);
 		}
-
-		this.render();
 	}
 
 	save() {
@@ -406,18 +432,9 @@ export class Tasks {
 		}
 
 		const id   = ++this.nextId;
-		const task = new Task(this, {
-			id,
-			desc,
-		});
+		const task = new Task(this, { id, desc, });
 
-		// Отображаем задачу, добавляя её в начало списка
-		this.$elm.prepend(task.getElm());
-
-		// Обновляем отображение задачи, если установлен фильтр
-		task.updateStatusByFilter();
-
-		this.save();
+		this.addTask(task);
 		return task;
 	}
 
@@ -425,8 +442,8 @@ export class Tasks {
 		if (idOrName && typeof idOrName === 'string') {
 			const task = this.findByName(idOrName);
 			if (task) {
-				task.destroy();
-				return;
+				this.removeTask(task);
+				return task;
 			}
 		}
 
@@ -436,8 +453,33 @@ export class Tasks {
 		}
 
 		const task = this.list.get(id);
+		this.removeTask(task);
+		return task;
+	}
+
+	/** @param task {Task} */
+	addTask(task) {
+		this.list.set(task.id, task);
+
+		// Отображаем задачу, добавляя её в начало списка
+		this.$elm.prepend(task.getElm());
+
+		// Обновляем отображение задачи, если установлен фильтр
+		task.updateStatusByFilter();
+
+		// Обновляем задачи в Storage
+		this.save();
+	}
+
+	/** @param task {Task} */
+	removeTask(task) {
+		this.list.delete(task.id);
+
+		// Удалим задачу корректно, если она еще не удалена
 		task.destroy();
-		return true;
+
+		// Обновляем задачи в Storage
+		this.save();
 	}
 
 	/** @return {'all' | 'done' | 'undone' | null} */
