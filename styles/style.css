@@ -245,6 +245,14 @@ img.cat {
 	box-shadow : 2px 2px 4px 1px rgba(30, 16, 8, 0.4);
 }
 
+.block-hide {
+	display: none !important;
+}
+
+.block-show {
+	display: block !important;
+}
+
 .block-margin {
 	margin : 1.6rem auto;
 }
@@ -559,10 +567,6 @@ aside.alert {
 	border-radius    : 8px;
 }
 
-.task.hide {
-	display : none;
-}
-
 .task__ident {
 	display   : flex;
 	flex-wrap : wrap;
@@ -592,18 +596,10 @@ aside.alert {
 	margin    : 0;
 }
 
-.task__desc.hide {
-	display : none;
-}
-
 .task__edit {
 	display    : none;
 	height     : auto;
 	min-height : 100%;
-}
-
-.task__edit.show {
-	display : block;
 }
 
 .task__content {
@@ -624,10 +620,6 @@ aside.alert {
 
 .task__button.active {
 	background-color:  hsl(var(--button-hsl), 78%, 68%);
-}
-
-.task__button.hide {
-	display : none;
 }
 
 .task__button:hover {

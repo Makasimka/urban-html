@@ -86,7 +86,7 @@ class Task {
 	fnEventDblClick = (event) => {
 		/** @type {HTMLElement | null} */
 		const elmTarget = event.target;
-		if (!elmTarget || !this.tasks) {
+		if (!elmTarget) {
 			return;
 		}
 
@@ -146,7 +146,7 @@ class Task {
 			<div class="task__buttons">
 				${markButton}
 				<button class="task__button s-edit">✏️ Изменить</button>
-				<button class="task__button hide s-save">💾 Сохранить</button>
+				<button class="task__button block-hide s-save">💾 Сохранить</button>
 				<button class="task__button s-remove">🗑️ Удалить</button>
 			</div>
 		`;
@@ -159,18 +159,18 @@ class Task {
 
 		const typeFilter = this.tasks.getTypeFilter();
 		if (typeFilter === 'done' && !this.isDone()) {
-			this.$elm.classList.add('hide');
+			this.$elm.classList.add('block-hide');
 			return;
 		}
 
 		if (typeFilter === 'undone' && this.isDone()) {
-			this.$elm.classList.add('hide');
+			this.$elm.classList.add('block-hide');
 			return;
 		}
 
 		// нет фильтра, показываем любую задачу
-		if (this.$elm.classList.contains('hide')) {
-			this.$elm.classList.remove('hide');
+		if (this.$elm.classList.contains('block-hide')) {
+			this.$elm.classList.remove('block-hide');
 		}
 	}
 
@@ -266,10 +266,10 @@ class Task {
 		edit.value = this.desc;
 		edit.style.minHeight = desc.clientHeight + 'px';
 
-		edit.classList.add('show');
-		desc.classList.add('hide');
-		btnEdit?.classList.add('hide');
-		btnSave?.classList.remove('hide');
+		edit.classList.add('block-show');
+		desc.classList.add('block-hide');
+		btnEdit?.classList.add('block-hide');
+		btnSave?.classList.remove('block-hide');
 
 		setTimeout(() => edit.focus(), 0);
 	}
@@ -293,21 +293,28 @@ class Task {
 		}
 
 		edit.value = '';
-		edit.classList.remove('show');
-		desc?.classList.remove('hide');
-		btnEdit?.classList.remove('hide');
-		btnSave?.classList.add('hide');
+		edit.classList.remove('block-show');
+		desc?.classList.remove('block-hide');
+		btnEdit?.classList.remove('block-hide');
+		btnSave?.classList.add('block-hide');
 	}
 }
 
 export class Tasks {
 
 	/**
-	 * @param $elmDiv {HTMLDivElement}
+	 * @param $elmList {HTMLDivElement}
+	 * @param $elmButtons {HTMLDivElement}
 	 * */
-	constructor($elmDiv) {
+	constructor($elmList, $elmButtons) {
 		/** @type {HTMLDivElement} */
-		this.$elm = $elmDiv;
+		this.$elm = $elmList;
+
+		/** @type {HTMLDivElement} */
+		this.$buttons = $elmButtons;
+
+		/** @type {HTMLButtonElement | null} */
+		this.$lastTargetButton = null;
 
 		/** @type {'all' | 'done' | 'undone' | null} */
 		this.typeFilter = null;
@@ -316,6 +323,43 @@ export class Tasks {
 		this.list = new Map();
 		this.nextId = 0;
 		this.actionSave = false;
+
+		this.bindEvents();
+	}
+
+	bindEvents() {
+		this.$buttons.addEventListener('click', (event) => {
+			const elmTarget = event.target;
+			if (!elmTarget) {
+				return;
+			}
+
+			let typeFilter;
+			if (elmTarget.classList.contains('s-show-all')) {
+				typeFilter = 'all';
+			} else if (elmTarget.classList.contains('s-show-done')) {
+				typeFilter = 'done';
+			} else if (elmTarget.classList.contains('s-show-undone')) {
+				typeFilter = 'undone';
+			}
+
+			if (typeFilter) {
+				event.preventDefault();
+
+				if (elmTarget.classList.contains('active')) {
+					this.changeTypeFilter(null);
+
+					elmTarget.classList.remove('active');
+					this.$lastTargetButton = null;
+				} else {
+					this.changeTypeFilter(typeFilter);
+
+					elmTarget.classList.add('active');
+					this.$lastTargetButton?.classList.remove('active');
+					this.$lastTargetButton = elmTarget;
+				}
+			}
+		});
 	}
 
 	restore() {
@@ -332,7 +376,7 @@ export class Tasks {
 				continue;
 			}
 
-			const task = new Task(this, taskData);
+			new Task(this, taskData);
 		}
 
 		this.render();
@@ -367,6 +411,7 @@ export class Tasks {
 			desc,
 		});
 
+		// Отображаем задачу, добавляя её в начало списка
 		this.$elm.prepend(task.getElm());
 
 		// Обновляем отображение задачи, если установлен фильтр

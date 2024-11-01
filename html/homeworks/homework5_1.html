@@ -4,10 +4,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="../styles/normalize.css">
-	<link rel="stylesheet" href="../styles/style.css?1">
-	<link rel="stylesheet" href="../styles/adaptation.css">
-	<title>Список моих домашних заданий</title>
+	<link rel="stylesheet" href="../../styles/normalize.css">
+	<link rel="stylesheet" href="../../styles/style.css?5">
+	<link rel="stylesheet" href="../../styles/adaptation.css?5">
+	<script async type="module" src="../../scripts/modules/homeworks/homework5.js?1"></script>
+	<title>Модуль 5. Сохранение имени пользователя</title>
 </head>
 <body>
 	<div class="main-content">
@@ -16,55 +17,33 @@
 				<ul>
 					<li><a href="/urban-html/">Главная</a></li>
 					<li><a href="/urban-html/html/comments.html">Комментарии</a></li>
-					<li><a href="#">Мои дз</a></li>
+					<li><a href="/urban-html/html/homeworks.html">Мои дз</a></li>
 				</ul>
 			</nav>
 		</header>
 
 		<main class="content">
-			<section class="block-margin">
-				<h1>Полный список моих домашних заданий</h1>
+			<h1>Зачетная работа по модулю №5.1</h1>
 
-				<div class="information">
-					<section class="links-list">
-						<h2>Модуль 1</h2>
-						<ol>
-							<li><a href="../index.html">Страница «Обо мне»</a></li>
-							<li><a href="./homeworks/homework1.html">Кратко об HTML, CSS и JS</a></li>
-						</ol>
-					</section>
+			<section class="information block-margin">
+				<h2>Сохранение имени пользователя</h2>
 
-					<section class="links-list">
-						<h2>Модуль 2</h2>
-						<ol>
-							<li><a href="./homeworks/homework2.html">Кратко о Frontend (введение)</a></li>
-							<li><a href="./homeworks/homework2_1.html">История профессии фронтенд-разработчика</a></li>
-							<li><a href="./comments.html">Форма для добавления комментария</a></li>
-						</ol>
-					</section>
+				<form id="form_user_name" class="block-margin" action="#" method="get">
+					<div class="input">
+						<label>
+							<b>Представьтесь:</b>
+							<input name="user_name" placeholder="Введите своё имя" required />
+						</label>
+					</div>
 
-					<section class="links-list">
-						<h2>Модуль 3</h2>
-						<ol>
-							<li><a href="./homeworks/homework3.html">Базовый CSS</a></li>
-						</ol>
-					</section>
+					<div class="form__result"></div>
 
-					<section class="links-list">
-						<h2>Модуль 4</h2>
-						<ol>
-							<li><a href="./homeworks/homework4.html">JS.База</a></li>
-						</ol>
-					</section>
+					<div class="submit submit-full">
+						<input type="submit" value="Сохранить имя">
+					</div>
+				</form>
 
-					<section class="links-list">
-						<h2>Модуль 5 (и 5.1)</h2>
-						<ol>
-							<li><a href="./homeworks/homework5.html">Простой список задач</a></li>
-							<li><a href="./homeworks/homework5_1.html">Сохранение имени пользователя</a></li>
-						</ol>
-					</section>
-				</div>
+				<article id="greet_user_name" class="block-margin block-hide"></article>
 			</section>
 		</main>
 	</div>
