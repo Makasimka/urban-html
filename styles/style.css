@@ -404,7 +404,8 @@ section.links-list {
 }
 
 .input *,
-.submit * {
+.submit *,
+.input-theme {
 	outline : none;
 }
 
@@ -413,7 +414,8 @@ section.links-list {
 }
 
 .input input,
-.input textarea {
+.input textarea,
+.input-theme {
 	display       : block;
 	padding       : 0.6rem 0.8rem;
 	margin-top    : 4px;
@@ -425,6 +427,10 @@ section.links-list {
 	color         : hsl(var(--input-hsl), 15%, 80%);
 	border        : 1px solid hsl(var(--input-hsl), 15%, 32%);
 	border-radius : 4px;
+}
+
+textarea.input-theme {
+	resize : none;
 }
 
 .submit input {
@@ -457,7 +463,8 @@ section.links-list {
 }
 
 .input input:focus,
-.input textarea:focus {
+.input textarea:focus,
+.input-theme:focus {
 	background : hsl(var(--input-hsl), 15%, 34%);
 }
 
@@ -472,7 +479,8 @@ section.links-list {
 }
 
 .input input::placeholder,
-.input textarea::placeholder {
+.input textarea::placeholder,
+.input-theme::placeholder {
 	color : hsl(var(--input-hsl), 15%, 58%);
 }
 
@@ -516,18 +524,28 @@ aside.alert {
 	display : none;
 }
 
-.tasks {
+.tasks,
+.tasks_list {
 	display        : flex;
 	flex-direction : column;
 	gap            : 20px;
 }
 
-.tasks:empty::after {
+.tasks_list:empty::after {
 	content      : 'Сейчас ваш список задач пуст...';
 	position     : relative;
 	font-size    : 0.88rem;
 	padding-left : 0.2rem;
 	color        : #c19b8e;
+}
+
+.tasks__buttons {
+	display         : flex;
+	flex-wrap       : wrap;
+	flex-direction  : row;
+	align-items     : center;
+	justify-content : center;
+	gap             : 6px;
 }
 
 .task {
@@ -539,6 +557,10 @@ aside.alert {
 
 	background-color : hsla(var(--block-hsl), 20%, 60%, 12%);
 	border-radius    : 8px;
+}
+
+.task.hide {
+	display : none;
 }
 
 .task__ident {
@@ -559,6 +581,11 @@ aside.alert {
 	font-weight : bold;
 }
 
+.task__name-done {
+	font-weight     : normal;
+	text-decoration : line-through;
+}
+
 .task__desc {
 	font-size : 0.94rem;
 	padding   : 0;
@@ -570,11 +597,17 @@ aside.alert {
 }
 
 .task__edit {
-	display : none;
+	display    : none;
+	height     : auto;
+	min-height : 100%;
 }
 
 .task__edit.show {
 	display : block;
+}
+
+.task__content {
+	position : relative;
 }
 
 .task__buttons {
@@ -587,6 +620,14 @@ aside.alert {
 	padding       : 0.4rem 1.2rem;
 	font-size     : 0.88rem;
 	border-radius : 6px;
+}
+
+.task__button.active {
+	background-color:  hsl(var(--button-hsl), 78%, 68%);
+}
+
+.task__button.hide {
+	display : none;
 }
 
 .task__button:hover {

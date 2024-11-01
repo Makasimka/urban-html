@@ -1,85 +1,55 @@
 import { Tasks } from "../classes/Tasks.js";
 import { bindForm } from "../utils.js";
 
-// ДЗ
-try {
-	const tasks = new Tasks();
-
-	tasks.add(`Выучить JavaScript`);
-	tasks.add(`Купить продукты`);
-	tasks.add(`Сделать домашнее задание`);
-
-	console.log(tasks.showAllText());
-
-	tasks.markDoneByName(`Купить продукты`);
-	tasks.removeByName(`Сделать домашнее задание`);
-
-	console.log(tasks.showAllText());
-
-	tasks.removeByName(`Несуществующая задача`);
-} catch (error) {
-	console.warn(error.message || '');
-}
-
 // Визуальное расширение
 window.addEventListener("load", () => {
-	const tasks     = new Tasks();
-	const formGreet = document.getElementById('form_task');
-	const tasksList = document.getElementById('tasks_list');
+	const formTask     = document.getElementById('form_task');
+	const tasksList    = document.getElementById('tasks_list');
+	const tasksButtons = document.getElementById('tasks_buttons');
 
-	if (!tasksList || !formGreet) {
+	if (!tasksList || !formTask || !tasksButtons) {
 		return;
 	}
 
-	const renderTasks = () => {
-		tasksList.innerHTML = tasks.showAllHtml();
-	}
+	const tasks = new Tasks(tasksList);
+	tasks.restore();
 
-	tasksList.addEventListener('click', (event) => {
-		const elm = event.target;
-		if (!elm) {
-			return;
-		}
-
-		try {
-			const parent = elm.parentElement?.parentElement;
-
-			// Обработка кнопки удаления задачи
-			if (parent && elm.classList.contains('s-remove')) {
-				event.preventDefault();
-
-				const index = Number(parent.getAttribute('data-id'));
-				if (!Number.isNaN(index) && tasks.remove(index)) {
-					renderTasks();
-				}
-
-				return;
-			}
-
-			// Обработка кнопки изменения статуса задачи
-			if (parent && elm.classList.contains('s-mark')) {
-				event.preventDefault();
-
-				const index = Number(parent.getAttribute('data-id'));
-				if (!Number.isNaN(index) && tasks.toggleDone(index)) {
-					renderTasks();
-				}
-
-				return;
-			}
-		} catch (e) {
-			if (e.message) {
-				alert(e.message);
-			}
+	bindForm(formTask, (form) => {
+		const desc = form.get('task_desc');
+		if (tasks.add(desc)) {
+			return 'Задача успешно добавлена';
 		}
 	});
 
-	bindForm(formGreet, (form) => {
-		const desc = form.get('task_desc');
+	let lastTargetButton;
+	tasksButtons.addEventListener('click', (event) => {
+		const elmTarget = event.target;
+		if (!elmTarget) {
+			return;
+		}
 
-		if (tasks.add(desc)) {
-			renderTasks();
-			return 'Задача успешно добавлена';
+		let typeFilter;
+		if (elmTarget.classList.contains('s-show-all')) {
+			typeFilter = 'all';
+		} else if (elmTarget.classList.contains('s-show-done')) {
+			typeFilter = 'done';
+		} else if (elmTarget.classList.contains('s-show-undone')) {
+			typeFilter = 'undone';
+		}
+
+		if (typeFilter) {
+			event.preventDefault();
+
+			if (elmTarget.classList.contains('active')) {
+				tasks.changeTypeFilter(null);
+				elmTarget.classList.remove('active');
+				lastTargetButton = undefined;
+			} else {
+				tasks.changeTypeFilter(typeFilter);
+				elmTarget.classList.add('active');
+				lastTargetButton?.classList.remove('active');
+				lastTargetButton = elmTarget;
+			}
 		}
 	});
 });

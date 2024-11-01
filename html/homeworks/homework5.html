@@ -47,7 +47,15 @@
 			<section class="information block-margin">
 				<h2>Список задач</h2>
 
-				<div id="tasks_list" class="tasks block-margin"></div>
+				<div class="tasks block-margin">
+					<div id="tasks_buttons" class="tasks__buttons">
+						<button class="task__button s-show-all">Показать все</button>
+						<button class="task__button s-show-done">Показать выполненные</button>
+						<button class="task__button s-show-undone">Показать невыполненные</button>
+					</div>
+
+					<div id="tasks_list" class="tasks_list"></div>
+				</div>
 			</section>
 		</main>
 	</div>
