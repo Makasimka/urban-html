@@ -170,6 +170,8 @@ class Task {
 			return;
 		}
 
+		elmStatus.innerText = `[${this.getStatusName()}]`;
+
 		if (this.isDone()) {
 			elmStatus.classList.add('task__status-done');
 			elmName.classList.add('task__name-done');
